@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokédex Ultimate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="pokedex-container">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="left-panel">
+        <div class="main-screen">
+            <span class="shiny-badge" id="shiny-badge">★ SHINY</span>
+            <img id="poke-img" class="pokemon-img">
+        </div>
+
+        <div class="small-screen">
+            <input id="search-input" placeholder="ID o Nombre">
+        </div>
+
+        <button class="search-btn" id="btn-search">BUSCAR</button>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="right-panel">
+
+        <div class="info-screen">
+            <div class="info-header">
+                <span id="poke-name">---</span>
+                <span id="poke-id">#---</span>
+            </div>
+
+            <div class="data-row">
+                Alt: <span id="poke-height">--</span> |
+                Peso: <span id="poke-weight">--</span>
+            </div>
+
+            <div class="types-container" id="poke-types"></div>
+
+            <div id="poke-desc" class="desc">Iniciando sistema...</div>
+        </div>
+
+        <div class="action-buttons">
+            
+            <button class="action-btn" id="btn-shiny">★</button>
+            <button class="action-btn" id="btn-cry">♪</button>
+            
+        </div>
+
+        <!-- D-PAD -->
+        <div class="d-pad">
+            <div class="center-circle"></div>
+            <button class="d-pad-btn pad-up" id="pad-up">▲</button>
+            <button class="d-pad-btn pad-right" id="pad-right">▶</button>
+            <button class="d-pad-btn pad-down" id="pad-down">▼</button>
+            <button class="d-pad-btn pad-left" id="pad-left">◀</button>
+        </div>
+
+    </div>
+</div>
+
+<audio id="pokemon-audio"></audio>
+
+<script src="app.js"></script>
+</body>
+</html>
