@@ -3,309 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Profesional - Victor Cornejo</title>
-    <!-- Fuente de Google Fonts: Inter -->
+    <title>Victor Cornejo | Ingeniero en Informática</title>
+    <!-- Fuentes: Outfit (Tech/Títulos) e Inter (Lectura) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Iconos de FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES CSS --- */
+        /* --- VARIABLES & DISEÑO SISTEMÁTICO --- */
         :root {
-            /* Azul profesional */
-            --primary-color: #0f172a; 
-            --accent-color: #2563eb; 
-            --secondary-color: #64748b;
-            --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-main: #334155;
-            --text-light: #64748b;
+            /* Paleta Slate & Indigo (Profesional y Tech) */
+            --bg-color: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+            --primary: #0f172a; /* Slate 900 */
+            --accent: #4f46e5;  /* Indigo 600 */
+            --accent-glow: rgba(79, 70, 229, 0.3);
+            --secondary: #64748b;
             
-            /* Colores para Hobbies */
-            --tech-color: #2563eb;
-            --pokedex-color: #ef4444;
-            --animal-color: #f97316; /* Naranja para mascotas */
-            --social-color: #10b981; /* Verde para interpersonal */
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-blur: 12px;
 
-            --border-radius: 12px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --transition: all 0.3s ease;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+            --shadow-hover: 0 20px 50px -12px rgba(79, 70, 229, 0.15);
+            
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* --- RESET Y BASE --- */
+        /* --- RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
+            background-attachment: fixed; 
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
+        h1, h2, h3, h4, .logo, .btn { font-family: 'Outfit', sans-serif; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
 
-        /* --- UTILIDADES --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* --- ANIMACIONES DE ENTRADA --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        section { padding: 80px 0; }
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 50px;
-        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR GLASS --- */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
             position: fixed;
-            top: 0;
-            width: 100%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            padding: 15px 30px;
+            border-radius: 50px;
             z-index: 1000;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .nav-content {
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            transition: 0.3s;
         }
-        .logo {
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--primary-color);
-        }
+        .logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.5px; }
+        .logo span { color: var(--accent); }
+        
         .nav-links { display: flex; gap: 30px; }
         .nav-links a {
             font-weight: 500;
-            color: var(--text-light);
-            transition: var(--transition);
+            color: var(--secondary);
             font-size: 0.95rem;
+            transition: 0.3s;
+            position: relative;
         }
-        .nav-links a:hover { color: var(--accent-color); }
-        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.active::after {
+            content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+            width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
+        }
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (PREMIUM) --- */
         .hero {
+            position: relative;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            min-height: 100vh;
-            padding-top: 80px;
+            padding: 120px 20px 50px;
+            overflow: hidden;
         }
-        .hero-text { flex: 1; padding-right: 40px; }
-        .hero-greeting {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: block;
-            font-size: 1.1rem;
+        
+        /* Elementos decorativos de fondo (Blobs) */
+        .hero::before {
+            content: ''; position: absolute; top: -10%; right: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(60px); z-index: -1; opacity: 0.6;
+            animation: pulse 8s infinite alternate;
         }
-        .hero h1 {
-            font-size: 3rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+        .hero::after {
+            content: ''; position: absolute; bottom: -10%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, #e0e7ff 0%, transparent 70%);
+            filter: blur(80px); z-index: -1;
         }
-        .hero h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--secondary-color);
-            margin-bottom: 25px;
-        }
-        .hero p {
-            font-size: 1.05rem;
-            color: var(--text-light);
-            margin-bottom: 30px;
-            max-width: 500px;
-        }
-        .hero-image { flex: 1; display: flex; justify-content: center; }
-        .hero-image img {
-            width: 320px;
-            height: 320px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover { background-color: #1e293b; transform: translateY(-2px); }
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            margin-left: 10px;
-        }
-        .btn-outline:hover { background-color: var(--primary-color); color: white; }
 
-        /* --- TIMELINE --- */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
+        .hero-container {
+            max-width: 1200px; margin: 0 auto; width: 100%;
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap;
         }
+
+        .hero-content { flex: 1; max-width: 600px; padding-right: 40px; z-index: 2; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: white; color: var(--accent);
+            padding: 8px 16px; border-radius: 30px;
+            font-weight: 600; font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+        }
+        .badge i { animation: bounce 2s infinite; }
+        
+        .hero h1 {
+            font-size: 4rem; line-height: 1.1; color: var(--primary);
+            margin-bottom: 20px; font-weight: 800; letter-spacing: -2px;
+        }
+        .hero h1 span {
+            background: -webkit-linear-gradient(45deg, var(--accent), #818cf8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem; color: var(--secondary); margin-bottom: 25px; font-weight: 500;
+        }
+        .hero-text {
+            font-size: 1.1rem; color: var(--secondary); margin-bottom: 40px;
+            max-width: 90%;
+        }
+
+        .hero-visual { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
+        
+        .profile-wrapper {
+            position: relative;
+            width: 400px; height: 400px;
+        }
+        .profile-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Forma orgánica */
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+            animation: morph 8s ease-in-out infinite;
+            border: 4px solid white;
+        }
+        /* Círculo decorativo detrás */
+        .profile-wrapper::before {
+            content: ''; position: absolute; top: -20px; right: -20px;
+            width: 100px; height: 100px;
+            border-radius: 50%; border: 2px dashed var(--accent);
+            animation: spin 20s linear infinite;
+        }
+
+        /* --- BOTONES --- */
+        .btn-group { display: flex; gap: 15px; }
+        .btn {
+            padding: 16px 36px; border-radius: 50px; font-weight: 600; font-size: 1rem;
+            cursor: pointer; transition: var(--transition); border: none; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-primary {
+            background: var(--primary); color: white;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--accent); transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.4);
+        }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--primary); color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary); color: white; transform: translateY(-5px);
+        }
+
+        /* --- SECCIONES GENERALES --- */
+        section { padding: 100px 20px; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+        .section-tag {
+            color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+            font-size: 0.85rem; margin-bottom: 10px; display: block;
+        }
+        .section-title { font-size: 2.5rem; color: var(--primary); font-weight: 800; margin-bottom: 15px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        /* --- TIMELINE (CENTRO EN PC, IZQUIERDA EN MOVIL) --- */
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; }
         .timeline::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            background-color: #cbd5e1;
-            top: 0;
-            bottom: 0;
-            left: 20px;
+            content: ''; position: absolute; width: 2px; background: #e2e8f0;
+            top: 0; bottom: 0; left: 50%; margin-left: -1px;
         }
         .timeline-item {
-            position: relative;
-            padding-left: 60px;
-            margin-bottom: 40px;
+            position: relative; width: 50%; padding: 20px 40px;
         }
+        .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; }
+        
         .timeline-dot {
-            position: absolute;
-            left: 11px;
-            top: 0;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: white;
-            border: 4px solid var(--accent-color);
+            position: absolute; width: 20px; height: 20px; right: -10px;
+            background: white; border: 4px solid var(--accent); border-radius: 50%; top: 25px; z-index: 10;
         }
-        .timeline-date {
-            font-size: 0.9rem;
-            color: var(--accent-color);
-            font-weight: 700;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        .timeline-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-color); }
-        .timeline-subtitle { font-size: 1rem; color: var(--secondary-color); margin-bottom: 10px; font-weight: 500; }
-        .timeline-list { padding-left: 20px; list-style-type: disc; margin-top: 10px; color: var(--text-light); }
-        .timeline-list li { margin-bottom: 5px; }
+        .timeline-item:nth-child(even) .timeline-dot { left: -10px; }
 
-        /* --- SKILLS GRID --- */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+        .timeline-card {
+            background: white; padding: 30px; border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.8);
+            transition: var(--transition);
         }
-        .skills-category h3 {
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
-            color: var(--primary-color);
+        .timeline-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .date { color: var(--accent); font-weight: 700; font-size: 0.9rem; margin-bottom: 5px; display: block; }
+        .role { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+        .company { color: var(--secondary); font-size: 0.95rem; margin-bottom: 15px; font-weight: 500; }
+        .timeline-list li { position: relative; padding-left: 20px; margin-bottom: 8px; color: var(--secondary); font-size: 0.95rem; }
+        .timeline-list li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); }
+
+        /* --- HABILIDADES GRID --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .skill-category {
+            background: white; padding: 35px; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft); border: 1px solid transparent;
+            transition: var(--transition);
         }
+        .skill-category:hover { border-color: var(--accent-glow); transform: translateY(-5px); }
+        .cat-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .cat-icon {
+            width: 50px; height: 50px; background: #eff6ff; color: var(--accent);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+        .tag-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .skill-tag {
-            display: inline-block;
-            background-color: white;
-            padding: 8px 16px;
-            margin: 5px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--text-main);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            font-weight: 500;
+            padding: 8px 18px; background: #f1f5f9; border-radius: 8px; font-size: 0.9rem;
+            font-weight: 500; color: var(--primary); transition: 0.3s; cursor: default;
         }
-        .skill-tag.tech { color: var(--accent-color); border-color: #bfdbfe; background-color: #eff6ff; }
-        .skill-tag.soft { color: #059669; border-color: #a7f3d0; background-color: #ecfdf5; }
+        .skill-tag:hover { background: var(--primary); color: white; }
 
-        /* --- GUSTOS / HOBBIES --- */
-        .hobbies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 25px;
-        }
+        /* --- INTERESES (Cards Modernas) --- */
+        .hobbies-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
         .hobby-card {
-            background: var(--card-bg);
-            padding: 30px 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: var(--transition);
-            border-top: 4px solid var(--primary-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: white; padding: 40px 20px; text-align: center;
+            border-radius: var(--radius-lg); border: 1px solid #e2e8f0;
+            transition: var(--transition); position: relative; overflow: hidden;
         }
-        .hobby-card:hover { transform: translateY(-5px); }
-        .hobby-icon { font-size: 2.5rem; margin-bottom: 15px; }
-        .hobby-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
-        .hobby-desc { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
-
-        /* BOTÓN POKEDEX ESPECIAL */
-        .btn-pokedex {
-            background: linear-gradient(135deg, var(--pokedex-color), #b91c1c);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
+        .hobby-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent); transform: scaleX(0); transform-origin: left; transition: 0.4s;
         }
-        .btn-pokedex:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+        .hobby-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+        .hobby-card:hover::before { transform: scaleX(1); }
+        
+        .icon-box {
+            width: 70px; height: 70px; margin: 0 auto 20px;
+            background: var(--bg-color); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: var(--secondary); transition: 0.4s;
         }
-
+        .hobby-card:hover .icon-box { background: var(--accent); color: white; transform: rotateY(360deg); }
+        
         /* --- CONTACTO --- */
-        .contact-box {
-            background: white;
-            padding: 40px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            text-align: center;
+        .contact-visual {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: var(--radius-lg); padding: 60px; color: white;
+            text-align: center; position: relative; overflow: hidden;
         }
-        .contact-info p { margin: 10px 0; font-size: 1.1rem; }
-        .contact-info i { color: var(--accent-color); margin-right: 10px; width: 20px; }
+        .contact-visual::before {
+            content: ''; position: absolute; width: 200px; height: 200px;
+            background: rgba(255,255,255,0.05); border-radius: 50%; top: -50px; right: -50px;
+        }
+        .contact-item { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 20px 0; font-size: 1.1rem; }
+        .contact-item i { color: #818cf8; }
 
         /* --- FOOTER --- */
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 40px 0;
-            margin-top: 60px;
+        footer { background: white; padding: 40px 0; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+        .socials { margin-bottom: 20px; }
+        .socials a {
+            display: inline-flex; width: 45px; height: 45px; background: #f1f5f9;
+            border-radius: 50%; align-items: center; justify-content: center;
+            color: var(--primary); margin: 0 8px; transition: 0.3s;
         }
-        .social-links a { color: #94a3b8; margin: 0 10px; font-size: 1.5rem; transition: 0.3s; }
-        .social-links a:hover { color: white; }
+        .socials a:hover { background: var(--accent); color: white; transform: translateY(-3px); }
 
-        /* RESPONSIVE */
+        /* --- ANIMACIONES KEYFRAMES --- */
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 0.8; } }
+        @keyframes morph {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* ======================================================= */
+        /* ============ ESTILOS RESPONSIVOS (MÓVIL) =============== */
+        /* ======================================================= */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3rem; }
+            .profile-wrapper { width: 350px; height: 350px; }
+        }
+
         @media (max-width: 768px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding-top: 100px; }
-            .hero-text { padding-right: 0; margin-top: 30px; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero-image img { width: 250px; height: 250px; margin-bottom: 20px; }
-            .nav-links { display: none; }
+            /* 1. Navbar Adaptación */
+            .navbar { 
+                width: 95%; 
+                top: 10px; 
+                padding: 15px 20px; 
+                border-radius: 16px; /* Menos redondeado */
+            }
+            .nav-links {
+                display: none; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                width: 100%;
+                background: rgba(255,255,255,0.98); 
+                flex-direction: column; 
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+                border-radius: 16px;
+                border-top: 1px solid #e2e8f0;
+            }
+            .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
+
+            /* 2. Hero Adaptación */
+            .hero { padding-top: 120px; flex-direction: column-reverse; text-align: center; }
+            .hero-content { padding-right: 0; margin-top: 40px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-text { margin-left: auto; margin-right: auto; }
+            .profile-wrapper { width: 260px; height: 260px; margin: 0 auto; }
+            .btn-group { justify-content: center; flex-wrap: wrap; }
+
+            /* 3. Timeline Adaptación (Paso Crítico) */
+            .timeline::after { left: 20px; } /* Mover línea a la izquierda */
+            .timeline-item { width: 100%; padding-left: 50px; padding-right: 25px; } /* Ocupar todo el ancho */
+            .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { left: 0; text-align: left; }
+            .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: 12px; right: auto; } /* Punto alineado a la línea */
+
+            /* 4. Grids Adaptación */
+            .skills-grid { grid-template-columns: 1fr; } /* Una sola columna */
+            .hobbies-wrapper { grid-template-columns: 1fr; }
+            
+            .section-title { font-size: 2rem; }
+            .contact-visual { padding: 40px 20px; }
+            .contact-item { flex-direction: column; gap: 5px; margin-bottom: 25px; }
         }
     </style>
 </head>
@@ -313,244 +379,257 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="container nav-content">
-            <a href="#" class="logo">Victor Cornejo</a>
-            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#experiencia">Experiencia</a></li>
-                <li><a href="#formacion">Formación</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#gustos">Intereses</a></li>
-                <li><a href="#contacto" style="color: var(--accent-color); font-weight: 700;">Contacto</a></li>
-            </ul>
-        </div>
+        <a href="#" class="logo">Victor<span>.Dev</span></a>
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#experiencia">Trayectoria</a></li>
+            <li><a href="#habilidades">Skills</a></li>
+            <li><a href="#intereses">Intereses</a></li>
+            <li><a href="#contacto" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.9rem;">Contacto</a></li>
+        </ul>
     </nav>
 
     <!-- HERO SECTION -->
     <section id="inicio" class="hero">
-        <div class="container" style="display: flex; flex-wrap: wrap; align-items: center;">
-            <div class="hero-text">
-                <span class="hero-greeting">Ingeniero de Ejecución en Informática</span>
-                <h1>Victor Cornejo</h1>
-                <h2>Mención Desarrollo de Sistemas</h2>
-                <p>
-                    Persona proactiva, organizada y responsable. Especializado en soporte informático, automatización de procesos administrativos y desarrollo de sistemas. 
-                    Siempre con la mejor disposición para aprender y enfrentar nuevos desafíos.
+        <div class="hero-container">
+            <div class="hero-content reveal">
+                <span class="badge"><i class="fas fa-code"></i> Disponible para trabajar</span>
+                <h1>Ingeniero de <br><span>Ejecución Informática</span></h1>
+                <h3 class="hero-subtitle">Victor Cornejo</h3>
+                <p class="hero-text">
+                    Especialista en desarrollo de sistemas, automatización de procesos administrativos y soporte TI. 
+                    Transformo problemas complejos en soluciones eficientes y escalables.
                 </p>
-                <div class="cta-buttons">
-                    <a href="#contacto" class="btn">Contáctame</a>
-                    <a href="#experiencia" class="btn btn-outline">Ver Trayectoria</a>
+                <div class="btn-group">
+                    <a href="#contacto" class="btn btn-primary">Hablemos <i class="fas fa-arrow-right"></i></a>
+                    <a href="#experiencia" class="btn btn-outline">Ver Portafolio</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <!-- Placeholder para tu foto -->
-                <img src="perfil" alt="Victor Cornejo">
+            <div class="hero-visual reveal">
+                <div class="profile-wrapper">
+                    <!-- Imagen placeholder de alta calidad -->
+                    <img src="perfil.jpeg" alt="Victor Cornejo" class="profile-img">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- EXPERIENCIA -->
-    <section id="experiencia" style="background-color: white;">
+    <section id="experiencia">
         <div class="container">
-            <h2 class="section-title">Experiencia Laboral</h2>
-            <p class="section-subtitle">Mi trayectoria profesional destacando gestión y soporte técnico.</p>
-
-            <div class="timeline">
-                <!-- Job 1 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">Ene 2023 - Mar 2025</div>
-                    <h3 class="timeline-title">Técnico Administrativo DOM</h3>
-                    <div class="timeline-subtitle">Municipalidad de Cartagena</div>
-                    <ul class="timeline-list">
-                        <li>Atención al público en trámites relacionados con obras municipales.</li>
-                        <li>Soporte informático a funcionarios y usuarios.</li>
-                        <li>Automatización de procesos administrativos para mejorar la eficiencia y trazabilidad.</li>
-                        <li>Apoyo en procesos administrativos internos.</li>
-                    </ul>
-                </div>
-
-                <!-- Job 2 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">Ene 2022 - Ene 2023</div>
-                    <h3 class="timeline-title">Asistente Administrativo DIMAO</h3>
-                    <div class="timeline-subtitle">Municipalidad de Cartagena</div>
-                    <ul class="timeline-list">
-                        <li>Apoyo en procesos de compras y tareas administrativas.</li>
-                        <li>Automatización de flujos de trabajo administrativos.</li>
-                        <li>Apoyo en labores operativas y de mantenimiento municipal.</li>
-                    </ul>
-                </div>
-
-                <!-- Job 3 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">2017 - 2021</div>
-                    <h3 class="timeline-title">Reponedor</h3>
-                    <div class="timeline-subtitle">Super bodega Acuenta</div>
-                    <ul class="timeline-list">
-                        <li>Reabastecimiento de productos y supervisión de equipo durante turno nocturno.</li>
-                        <li>Organización y orden del recinto comercial.</li>
-                    </ul>
-                </div>
+            <div class="section-header reveal">
+                <span class="section-tag">Trayectoria</span>
+                <h2 class="section-title">Experiencia Profesional</h2>
+                <p>Gestión técnica y administrativa con enfoque en eficiencia.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- FORMACIÓN -->
-    <section id="formacion">
-        <div class="container">
-            <h2 class="section-title">Formación Académica</h2>
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot" style="border-color: #64748b;"></div>
-                    <div class="timeline-date">2020 - 2025</div>
-                    <h3 class="timeline-title">Ingeniería de Ejecución en Informática</h3>
-                    <div class="timeline-subtitle">Mención Desarrollo de Sistemas - AIEP</div>
+                <!-- Item 1 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="date">Ene 2023 - Mar 2025</span>
+                        <h3 class="role">Técnico Administrativo DOM</h3>
+                        <p class="company">Municipalidad de Cartagena</p>
+                        <ul class="timeline-list">
+                            <li>Liderazgo en atención de público y trámites municipales.</li>
+                            <li>Automatización de procesos administrativos internos.</li>
+                            <li>Soporte TI y gestión de infraestructura tecnológica.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot" style="border-color: #64748b;"></div>
-                    <div class="timeline-date">2020 - 2023</div>
-                    <h3 class="timeline-title">Técnico en Programación y Análisis de Sistemas</h3>
-                    <div class="timeline-subtitle">AIEP</div>
+
+                <!-- Item 2 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="date">Ene 2022 - Ene 2023</span>
+                        <h3 class="role">Asistente Administrativo DIMAO</h3>
+                        <p class="company">Municipalidad de Cartagena</p>
+                        <ul class="timeline-list">
+                            <li>Optimización de flujos de trabajo administrativos.</li>
+                            <li>Soporte en procesos de compras públicas.</li>
+                            <li>Coordinación operativa en terreno.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="date">2017 - 2021</span>
+                        <h3 class="role">Reponedor & Supervisor</h3>
+                        <p class="company">Super bodega Acuenta</p>
+                        <ul class="timeline-list">
+                            <li>Supervisión de equipo en turno nocturno.</li>
+                            <li>Gestión de inventario y ordenamiento logístico.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- HABILIDADES -->
-    <section id="habilidades" style="background-color: white;">
+    <section id="habilidades" style="background: white;">
         <div class="container">
-            <h2 class="section-title">Habilidades y Herramientas</h2>
-            <div class="skills-container">
-                <!-- Tech Skills -->
-                <div class="skills-category">
-                    <h3>Tecnologías</h3>
-                    <div>
-                        <span class="skill-tag tech">HTML</span>
-                        <span class="skill-tag tech">C#</span>
-                        <span class="skill-tag tech">JAVASCRIPT</span>
-                        <span class="skill-tag tech">PYTHON</span>
-                        <span class="skill-tag tech">Automatización de Procesos</span>
+            <div class="section-header reveal">
+                <span class="section-tag">Stack Tecnológico</span>
+                <h2 class="section-title">Herramientas & Skills</h2>
+            </div>
+
+            <div class="skills-grid">
+                <!-- Tech -->
+                <div class="skill-category reveal">
+                    <div class="cat-header">
+                        <div class="cat-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Desarrollo</h3>
+                    </div>
+                    <div class="tag-container">
+                        <span class="skill-tag">HTML5 & CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">C# .NET</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+
+                <!-- Automation -->
+                <div class="skill-category reveal">
+                    <div class="cat-header">
+                        <div class="cat-icon"><i class="fas fa-robot"></i></div>
+                        <h3>Automatización</h3>
+                    </div>
+                    <div class="tag-container">
+                        <span class="skill-tag">Procesos Admin</span>
+                        <span class="skill-tag">Scripts</span>
+                        <span class="skill-tag">Gestión de Datos</span>
+                        <span class="skill-tag">Office Automation</span>
                     </div>
                 </div>
 
                 <!-- Soft Skills -->
-                <div class="skills-category">
-                    <h3>Habilidades Blandas</h3>
-                    <div>
-                        <span class="skill-tag soft">Pensamiento Analítico</span>
-                        <span class="skill-tag soft">Resolución de Problemas</span>
-                        <span class="skill-tag soft">Trabajo en Equipo</span>
-                        <span class="skill-tag soft">Comunicación Efectiva</span>
-                        <span class="skill-tag soft">Organización y Gestión del Tiempo</span>
-                        <span class="skill-tag soft">Adaptabilidad a nuevas tecnologías</span>
+                <div class="skill-category reveal">
+                    <div class="cat-header">
+                        <div class="cat-icon"><i class="fas fa-users-cog"></i></div>
+                        <h3>Profesionales</h3>
                     </div>
-                </div>
-                
-                <!-- Languages -->
-                <div class="skills-category">
-                    <h3>Idiomas</h3>
-                    <div>
-                        <span class="skill-tag">Español (Nativo)</span>
-                        <span class="skill-tag">Inglés (Nivel Medio)</span>
+                    <div class="tag-container">
+                        <span class="skill-tag">Liderazgo</span>
+                        <span class="skill-tag">Resolución Problemas</span>
+                        <span class="skill-tag">Comunicación</span>
+                        <span class="skill-tag">Adaptabilidad</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GUSTOS Y PASATIEMPOS (ACTUALIZADO) -->
-    <section id="gustos">
+    <!-- INTERESES -->
+    <section id="intereses">
         <div class="container">
-            <h2 class="section-title">Mis Intereses</h2>
-            <p class="section-subtitle">Un poco más sobre mí fuera del entorno laboral.</p>
+            <div class="section-header reveal">
+                <span class="section-tag">Personal</span>
+                <h2 class="section-title">Más allá del código</h2>
+            </div>
 
-            <div class="hobbies-grid">
-                <!-- Hobby 1: Tecnología -->
-                <div class="hobby-card" style="border-top-color: var(--tech-color);">
-                    <i class="fas fa-laptop-code hobby-icon" style="color: var(--tech-color);"></i>
-                    <h3 class="hobby-title">Tecnología</h3>
-                    <p class="hobby-desc">Me mantengo actualizado con las nuevas tendencias en desarrollo web y herramientas digitales.</p>
+            <div class="hobbies-wrapper">
+                <div class="hobby-card reveal">
+                    <div class="icon-box"><i class="fas fa-gamepad"></i></div>
+                    <h3>Gaming & Pokedex</h3>
+                    <p style="color:var(--secondary); margin-top:10px; font-size:0.9rem;">Desarrollo de proyectos lúdicos y pasión por los videojuegos.</p>
+                    <a href="pokedex.html" target="_blank" class="btn btn-outline" style="font-size:0.8rem; padding: 8px 20px; margin-top:15px;">Ver Pokedex</a>
                 </div>
 
-                <!-- Hobby 2: POKEDEX (Link Real) -->
-                <div class="hobby-card" style="border-top-color: var(--pokedex-color);">
-                    <i class="fas fa-gamepad hobby-icon" style="color: var(--pokedex-color);"></i>
-                    <h3 class="hobby-title">Videojuegos</h3>
-                    <p class="hobby-desc">Disfruto de los videojuegos como forma de entretenimiento y reto mental.</p>
-                    
-                    <!-- ENLACE DIRECTO A TU ARCHIVO HTML -->
-                    <a href="pokedex.html" target="_blank" class="btn-pokedex">
-                        <i class="fas fa-external-link-alt"></i> Ver mi Pokedex
-                    </a>
+                <div class="hobby-card reveal">
+                    <div class="icon-box"><i class="fas fa-film"></i></div>
+                    <h3>Cine & Narrativa</h3>
+                    <p style="color:var(--secondary); margin-top:10px; font-size:0.9rem;">Entusiasta del séptimo arte, guionismo y análisis visual.</p>
                 </div>
 
-                <!-- Hobby 3: ANIMALES (NUEVO) -->
-                <div class="hobby-card" style="border-top-color: var(--animal-color);">
-                    <i class="fas fa-paw hobby-icon" style="color: var(--animal-color);"></i>
-                    <h3 class="hobby-title">Animales</h3>
-                    <p class="hobby-desc">Gran amante de los animales. Disfruto mucho del tiempo con perros y gatos.</p>
+                <div class="hobby-card reveal">
+                    <div class="icon-box"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Aprendizaje</h3>
+                    <p style="color:var(--secondary); margin-top:10px; font-size:0.9rem;">Constante actualización en nuevas tecnologías web.</p>
                 </div>
 
-                <!-- Hobby 4: Interpersonal -->
-                <div class="hobby-card" style="border-top-color: var(--social-color);">
-                    <i class="fas fa-users hobby-icon" style="color: var(--social-color);"></i>
-                    <h3 class="hobby-title">Relaciones</h3>
-                    <p class="hobby-desc">Valorar el trabajo en equipo, las buenas relaciones y el ambiente organizacional.</p>
+                <div class="hobby-card reveal">
+                    <div class="icon-box"><i class="fas fa-paw"></i></div>
+                    <h3>Animales</h3>
+                    <p style="color:var(--secondary); margin-top:10px; font-size:0.9rem;">Amante de la naturaleza y el cuidado de mascotas.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CONTACTO -->
-    <section id="contacto" style="background-color: white;">
+    <section id="contacto">
         <div class="container">
-            <h2 class="section-title">Contacto</h2>
-            <div class="contact-box">
-                <div class="contact-info">
-                    <p><i class="fas fa-envelope"></i> v.cornejo.sanchez@gmail.com</p>
-                    <p><i class="fas fa-phone"></i> +569 77671025</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Los Leones Parcela #15</p>
-                    <p><i class="fab fa-linkedin"></i> linkedin.com/in/victorcornejo31</p>
-                </div>
+            <div class="contact-visual reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">¿Tienes un proyecto en mente?</h2>
+                <p style="color: #cbd5e1; margin-bottom: 40px;">Estoy listo para aportar valor a tu equipo.</p>
+                
+                <div class="contact-item"><i class="fas fa-envelope"></i> v.cornejo.sanchez@gmail.com</div>
+                <div class="contact-item"><i class="fas fa-phone"></i> +569 77671025</div>
+                <div class="contact-item"><i class="fab fa-linkedin"></i> linkedin.com/in/victorcornejo31</div>
+                
                 <br>
-                <a href="mailto:v.cornejo.sanchez@gmail.com" class="btn">Enviar Correo</a>
+                <a href="mailto:v.cornejo.sanchez@gmail.com" class="btn btn-primary" style="background: white; color: var(--primary);">Enviar Mensaje</a>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://linkedin.com/in/victorcornejo31" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:v.cornejo.sanchez@gmail.com"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p>&copy; 2025 Victor Cornejo. Todos los derechos reservados.</p>
+        <div class="socials">
+            <a href="https://linkedin.com/in/victorcornejo31" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:v.cornejo.sanchez@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
         </div>
+        <p style="color: var(--secondary); font-size: 0.9rem;">&copy; 2025 Victor Cornejo. Diseñado con pasión.</p>
     </footer>
 
     <script>
-        // Menú móvil
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            const nav = document.querySelector('.nav-links');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-            if(nav.style.display === 'flex') {
-                nav.style.flexDirection = 'column';
-                nav.style.position = 'absolute';
-                nav.style.top = '70px';
-                nav.style.left = '0';
-                nav.style.width = '100%';
-                nav.style.background = 'white';
-                nav.style.padding = '20px';
-                nav.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+        // Toggle Menú Móvil
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer click en enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Efecto Reveal al hacer Scroll
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar Style Change on Scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.85)';
+                navbar.style.boxShadow = '0 8px 32px rgba(0,0,0,0.05)';
             }
         });
     </script>
 </body>
-
 </html>
-
